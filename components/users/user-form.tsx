@@ -10,6 +10,14 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog"
 import { type User, defaultPermissions } from "@/lib/mock-data"
 
+/**
+ * @interface UserFormProps
+ * @description Defines the props for the UserForm component.
+ * @property {User} [user] - An optional user object to pre-populate the form for editing.
+ * @property {boolean} open - Controls whether the dialog is open or closed.
+ * @property {(open: boolean) => void} onOpenChange - Callback function to handle changes in the dialog's open state.
+ * @property {(user: Partial<User>) => void} onSave - Callback function to handle saving the user data.
+ */
 interface UserFormProps {
   user?: User
   open: boolean
@@ -17,6 +25,13 @@ interface UserFormProps {
   onSave: (user: Partial<User>) => void
 }
 
+/**
+ * @component UserForm
+ * @description A dialog form for creating or editing user information, including their role and status.
+ * It automatically assigns permissions based on the selected role upon saving.
+ * @param {UserFormProps} props - The props for the component.
+ * @returns {JSX.Element} The user form dialog component.
+ */
 export function UserForm({ user, open, onOpenChange, onSave }: UserFormProps) {
   const [formData, setFormData] = useState<Partial<User>>(
     user || {
@@ -28,6 +43,12 @@ export function UserForm({ user, open, onOpenChange, onSave }: UserFormProps) {
     },
   )
 
+  /**
+   * @function handleSubmit
+   * @description Handles the form submission, assigns default permissions based on the role,
+   * and triggers the onSave callback before closing the dialog.
+   * @param {React.FormEvent} e - The form submission event.
+   */
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     const userData = {

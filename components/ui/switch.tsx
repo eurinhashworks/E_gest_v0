@@ -5,6 +5,13 @@ import * as SwitchPrimitive from '@radix-ui/react-switch'
 
 import { cn } from '@/lib/utils'
 
+/**
+ * @component Switch
+ * @description Renders a two-state toggle switch component.
+ * It is based on the Radix UI Switch primitive and is styled for the application's design system.
+ * @param {React.ComponentProps<typeof SwitchPrimitive.Root>} props - Props for the component.
+ * @returns {JSX.Element} The switch component.
+ */
 function Switch({
   className,
   ...props

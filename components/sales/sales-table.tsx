@@ -6,6 +6,15 @@ import { Button } from "@/components/ui/button"
 import { Edit, Trash2, Eye, FileText } from "lucide-react"
 import type { Sale } from "@/lib/mock-data"
 
+/**
+ * @interface SalesTableProps
+ * @description Defines the props for the SalesTable component.
+ * @property {Sale[]} sales - An array of sale objects to display.
+ * @property {(sale: Sale) => void} onEdit - Callback function for editing a sale.
+ * @property {(sale: Sale) => void} onDelete - Callback function for deleting a sale.
+ * @property {(sale: Sale) => void} onView - Callback function for viewing a sale's details.
+ * @property {(sale: Sale) => void} onGenerateInvoice - Callback function for generating an invoice for a sale.
+ */
 interface SalesTableProps {
   sales: Sale[]
   onEdit: (sale: Sale) => void
@@ -14,7 +23,19 @@ interface SalesTableProps {
   onGenerateInvoice: (sale: Sale) => void
 }
 
+/**
+ * @component SalesTable
+ * @description Renders a table of sales with their details and action buttons.
+ * @param {SalesTableProps} props - The props for the component.
+ * @returns {JSX.Element} The sales table component.
+ */
 export function SalesTable({ sales, onEdit, onDelete, onView, onGenerateInvoice }: SalesTableProps) {
+  /**
+   * @function getStatusBadge
+   * @description Returns a styled badge based on the sale's status.
+   * @param {Sale["status"]} status - The status of the sale.
+   * @returns {JSX.Element} A Badge component representing the sale's status.
+   */
   const getStatusBadge = (status: Sale["status"]) => {
     const statusConfig = {
       pending: { label: "En attente", className: "bg-warning/10 text-warning border-warning" },
@@ -32,6 +53,12 @@ export function SalesTable({ sales, onEdit, onDelete, onView, onGenerateInvoice 
     )
   }
 
+  /**
+   * @function getPaymentBadge
+   * @description Returns a styled badge based on the sale's payment status.
+   * @param {Sale["paymentStatus"]} status - The payment status of the sale.
+   * @returns {JSX.Element} A Badge component representing the payment status.
+   */
   const getPaymentBadge = (status: Sale["paymentStatus"]) => {
     const statusConfig = {
       unpaid: { label: "Non payé", className: "bg-destructive/10 text-destructive border-destructive" },
@@ -47,6 +74,12 @@ export function SalesTable({ sales, onEdit, onDelete, onView, onGenerateInvoice 
     )
   }
 
+  /**
+   * @function formatPrice
+   * @description Formats a number into a currency string (EUR).
+   * @param {number} price - The price to format.
+   * @returns {string} The formatted price string.
+   */
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("fr-FR", {
       style: "currency",
@@ -54,6 +87,12 @@ export function SalesTable({ sales, onEdit, onDelete, onView, onGenerateInvoice 
     }).format(price)
   }
 
+  /**
+   * @function formatDate
+   * @description Formats a date string into a localized date string (fr-FR).
+   * @param {string} date - The date string to format.
+   * @returns {string} The formatted date string.
+   */
   const formatDate = (date: string) => {
     return new Date(date).toLocaleDateString("fr-FR", {
       day: "2-digit",

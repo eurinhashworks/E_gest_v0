@@ -11,12 +11,26 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import type { Supplier } from "@/lib/mock-data"
 
+/**
+ * @interface SupplierFormProps
+ * @description Defines the props for the SupplierForm component.
+ * @property {Supplier} [supplier] - An optional supplier object to pre-populate the form for editing.
+ * @property {(supplier: Partial<Supplier>) => void} onSubmit - Callback function to handle form submission.
+ * @property {() => void} onCancel - Callback function to handle form cancellation.
+ */
 interface SupplierFormProps {
   supplier?: Supplier
   onSubmit: (supplier: Partial<Supplier>) => void
   onCancel: () => void
 }
 
+/**
+ * @component SupplierForm
+ * @description A form component for creating or editing supplier information.
+ * It manages the form state and handles submission and cancellation.
+ * @param {SupplierFormProps} props - The props for the component.
+ * @returns {JSX.Element} The supplier form component.
+ */
 export function SupplierForm({ supplier, onSubmit, onCancel }: SupplierFormProps) {
   const [formData, setFormData] = useState<Partial<Supplier>>(
     supplier || {
@@ -34,11 +48,22 @@ export function SupplierForm({ supplier, onSubmit, onCancel }: SupplierFormProps
     },
   )
 
+  /**
+   * @function handleSubmit
+   * @description Handles the form submission event.
+   * @param {React.FormEvent} e - The form submission event.
+   */
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     onSubmit(formData)
   }
 
+  /**
+   * @function handleChange
+   * @description Handles changes in form input fields and updates the form state.
+   * @param {keyof Supplier} field - The field of the supplier object to update.
+   * @param {any} value - The new value for the field.
+   */
   const handleChange = (field: keyof Supplier, value: any) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
   }

@@ -11,12 +11,26 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import type { Client } from "@/lib/mock-data"
 
+/**
+ * @interface ClientFormProps
+ * @description Defines the props for the ClientForm component.
+ * @property {Client} [client] - An optional client object to pre-populate the form for editing.
+ * @property {(client: Partial<Client>) => void} onSubmit - Callback function to handle form submission.
+ * @property {() => void} onCancel - Callback function to handle form cancellation.
+ */
 interface ClientFormProps {
   client?: Client
   onSubmit: (client: Partial<Client>) => void
   onCancel: () => void
 }
 
+/**
+ * @component ClientForm
+ * @description A form component for creating or editing client information.
+ * It manages the form state and handles submission and cancellation.
+ * @param {ClientFormProps} props - The props for the component.
+ * @returns {JSX.Element} The client form component.
+ */
 export function ClientForm({ client, onSubmit, onCancel }: ClientFormProps) {
   const [formData, setFormData] = useState<Partial<Client>>(
     client || {
@@ -33,11 +47,22 @@ export function ClientForm({ client, onSubmit, onCancel }: ClientFormProps) {
     },
   )
 
+  /**
+   * @function handleSubmit
+   * @description Handles the form submission event.
+   * @param {React.FormEvent} e - The form submission event.
+   */
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     onSubmit(formData)
   }
 
+  /**
+   * @function handleChange
+   * @description Handles changes in form input fields and updates the form state.
+   * @param {keyof Client} field - The field of the client object to update.
+   * @param {any} value - The new value for the field.
+   */
   const handleChange = (field: keyof Client, value: any) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
   }

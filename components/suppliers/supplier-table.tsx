@@ -6,6 +6,14 @@ import { Button } from "@/components/ui/button"
 import { Edit, Trash2, Eye, Mail, Phone } from "lucide-react"
 import type { Supplier } from "@/lib/mock-data"
 
+/**
+ * @interface SupplierTableProps
+ * @description Defines the props for the SupplierTable component.
+ * @property {Supplier[]} suppliers - An array of supplier objects to display.
+ * @property {(supplier: Supplier) => void} onEdit - Callback function for editing a supplier.
+ * @property {(supplier: Supplier) => void} onDelete - Callback function for deleting a supplier.
+ * @property {(supplier: Supplier) => void} onView - Callback function for viewing a supplier's details.
+ */
 interface SupplierTableProps {
   suppliers: Supplier[]
   onEdit: (supplier: Supplier) => void
@@ -13,7 +21,19 @@ interface SupplierTableProps {
   onView: (supplier: Supplier) => void
 }
 
+/**
+ * @component SupplierTable
+ * @description Renders a table of suppliers with their details and action buttons.
+ * @param {SupplierTableProps} props - The props for the component.
+ * @returns {JSX.Element} The supplier table component.
+ */
 export function SupplierTable({ suppliers, onEdit, onDelete, onView }: SupplierTableProps) {
+  /**
+   * @function getStatusBadge
+   * @description Returns a styled badge based on the supplier's status.
+   * @param {Supplier["status"]} status - The status of the supplier.
+   * @returns {JSX.Element} A Badge component.
+   */
   const getStatusBadge = (status: Supplier["status"]) => {
     return status === "active" ? (
       <Badge className="bg-success text-success-foreground">Actif</Badge>
@@ -22,6 +42,12 @@ export function SupplierTable({ suppliers, onEdit, onDelete, onView }: SupplierT
     )
   }
 
+  /**
+   * @function formatPrice
+   * @description Formats a number into a currency string (EUR).
+   * @param {number} price - The price to format.
+   * @returns {string} The formatted price string.
+   */
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("fr-FR", {
       style: "currency",
@@ -29,6 +55,12 @@ export function SupplierTable({ suppliers, onEdit, onDelete, onView }: SupplierT
     }).format(price)
   }
 
+  /**
+   * @function formatDate
+   * @description Formats a date string into a localized date string (fr-FR).
+   * @param {string} date - The date string to format.
+   * @returns {string} The formatted date string.
+   */
   const formatDate = (date: string) => {
     return new Date(date).toLocaleDateString("fr-FR", {
       day: "2-digit",

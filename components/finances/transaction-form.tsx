@@ -12,13 +12,28 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import type { Transaction } from "@/lib/mock-data"
 import { mockFinancialAccounts } from "@/lib/mock-data"
 
+/**
+ * @interface TransactionFormProps
+ * @description Defines the props for the TransactionForm component.
+ * @property {Transaction} [transaction] - An optional transaction object to pre-populate the form for editing.
+ * @property {(transaction: Partial<Transaction>) => void} onSubmit - Callback function to handle form submission.
+ * @property {() => void} onCancel - Callback function to handle form cancellation.
+ */
 interface TransactionFormProps {
   transaction?: Transaction
   onSubmit: (transaction: Partial<Transaction>) => void
   onCancel: () => void
 }
 
+/**
+ * @description An array of categories for revenue transactions.
+ * @type {string[]}
+ */
 const revenueCategories = ["Ventes", "Services", "Intérêts", "Autres revenus"]
+/**
+ * @description An array of categories for expense transactions.
+ * @type {string[]}
+ */
 const expenseCategories = [
   "Achats fournisseurs",
   "Salaires",
@@ -31,6 +46,13 @@ const expenseCategories = [
   "Autres dépenses",
 ]
 
+/**
+ * @component TransactionForm
+ * @description A form for creating or editing financial transactions.
+ * It manages form state and handles submission and cancellation.
+ * @param {TransactionFormProps} props - The props for the component.
+ * @returns {JSX.Element} The transaction form component.
+ */
 export function TransactionForm({ transaction, onSubmit, onCancel }: TransactionFormProps) {
   const [formData, setFormData] = useState<Partial<Transaction>>(
     transaction || {
@@ -44,11 +66,22 @@ export function TransactionForm({ transaction, onSubmit, onCancel }: Transaction
     },
   )
 
+  /**
+   * @function handleSubmit
+   * @description Handles the form submission event.
+   * @param {React.FormEvent} e - The form submission event.
+   */
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     onSubmit(formData)
   }
 
+  /**
+   * @function handleChange
+   * @description Handles changes in form input fields and updates the form state.
+   * @param {keyof Transaction} field - The field of the transaction object to update.
+   * @param {any} value - The new value for the field.
+   */
   const handleChange = (field: keyof Transaction, value: any) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
   }

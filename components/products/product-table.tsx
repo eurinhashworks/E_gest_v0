@@ -6,6 +6,14 @@ import { Edit, Trash2, Eye, AlertTriangle } from "lucide-react"
 import type { Product } from "@/lib/mock-data"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
+/**
+ * @interface ProductTableProps
+ * @description Defines the props for the ProductTable component.
+ * @property {Product[]} products - An array of product objects to display.
+ * @property {(product: Product) => void} onEdit - Callback function for editing a product.
+ * @property {(product: Product) => void} onDelete - Callback function for deleting a product.
+ * @property {(product: Product) => void} onView - Callback function for viewing a product's details.
+ */
 interface ProductTableProps {
   products: Product[]
   onEdit: (product: Product) => void
@@ -13,7 +21,21 @@ interface ProductTableProps {
   onView: (product: Product) => void
 }
 
+/**
+ * @component ProductTable
+ * @description Renders a table of products with their details and action buttons.
+ * @param {ProductTableProps} props - The props for the component.
+ * @returns {JSX.Element} The product table component.
+ */
 export function ProductTable({ products, onEdit, onDelete, onView }: ProductTableProps) {
+  /**
+   * @function getStatusBadge
+   * @description Determines and returns a styled badge based on the product's stock status.
+   * @param {Product["status"]} status - The status of the product.
+   * @param {number} stock - The current stock level.
+   * @param {number} minStock - The minimum stock level.
+   * @returns {JSX.Element} A Badge component representing the product's status.
+   */
   const getStatusBadge = (status: Product["status"], stock: number, minStock: number) => {
     if (status === "out_of_stock" || stock === 0) {
       return <Badge variant="destructive">Rupture</Badge>
@@ -32,6 +54,12 @@ export function ProductTable({ products, onEdit, onDelete, onView }: ProductTabl
     return <Badge variant="secondary">Inactif</Badge>
   }
 
+  /**
+   * @function formatPrice
+   * @description Formats a number into a currency string (EUR).
+   * @param {number} price - The price to format.
+   * @returns {string} The formatted price string.
+   */
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("fr-FR", {
       style: "currency",

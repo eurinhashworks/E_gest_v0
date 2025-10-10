@@ -12,12 +12,26 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import type { Product } from "@/lib/mock-data"
 import { mockCategories } from "@/lib/mock-data"
 
+/**
+ * @interface ProductFormProps
+ * @description Defines the props for the ProductForm component.
+ * @property {Product} [product] - An optional product object to pre-populate the form for editing.
+ * @property {(product: Partial<Product>) => void} onSubmit - Callback function to handle form submission.
+ * @property {() => void} onCancel - Callback function to handle form cancellation.
+ */
 interface ProductFormProps {
   product?: Product
   onSubmit: (product: Partial<Product>) => void
   onCancel: () => void
 }
 
+/**
+ * @component ProductForm
+ * @description A form component for creating or editing product information.
+ * It manages the form state for product details and variants, and handles submission and cancellation.
+ * @param {ProductFormProps} props - The props for the component.
+ * @returns {JSX.Element} The product form component.
+ */
 export function ProductForm({ product, onSubmit, onCancel }: ProductFormProps) {
   const [formData, setFormData] = useState<Partial<Product>>(
     product || {
@@ -37,11 +51,22 @@ export function ProductForm({ product, onSubmit, onCancel }: ProductFormProps) {
 
   const [variants, setVariants] = useState(product?.variants || [])
 
+  /**
+   * @function handleSubmit
+   * @description Handles the form submission event, combining form data and variants.
+   * @param {React.FormEvent} e - The form submission event.
+   */
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     onSubmit({ ...formData, variants })
   }
 
+  /**
+   * @function handleChange
+   * @description Handles changes in form input fields and updates the form state.
+   * @param {keyof Product} field - The field of the product object to update.
+   * @param {any} value - The new value for the field.
+   */
   const handleChange = (field: keyof Product, value: any) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
   }

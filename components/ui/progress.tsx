@@ -5,6 +5,13 @@ import * as ProgressPrimitive from '@radix-ui/react-progress'
 
 import { cn } from '@/lib/utils'
 
+/**
+ * @component Progress
+ * @description Displays a progress bar to indicate the completion of a task.
+ * It is based on the Radix UI Progress primitive.
+ * @param {React.ComponentProps<typeof ProgressPrimitive.Root>} props - Props for the component, including `value` to set the progress percentage.
+ * @returns {JSX.Element} The progress bar component.
+ */
 function Progress({
   className,
   value,

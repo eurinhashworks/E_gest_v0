@@ -4,6 +4,12 @@ import * as React from 'react'
 
 import { cn } from '@/lib/utils'
 
+/**
+ * @component Table
+ * @description The main wrapper for a table, which includes a container for horizontal scrolling.
+ * @param {React.ComponentProps<'table'>} props - Props for the table element.
+ * @returns {JSX.Element} The table component.
+ */
 function Table({ className, ...props }: React.ComponentProps<'table'>) {
   return (
     <div
@@ -19,6 +25,12 @@ function Table({ className, ...props }: React.ComponentProps<'table'>) {
   )
 }
 
+/**
+ * @component TableHeader
+ * @description The header section of a table (`<thead>`).
+ * @param {React.ComponentProps<'thead'>} props - Props for the `thead` element.
+ * @returns {JSX.Element} The table header component.
+ */
 function TableHeader({ className, ...props }: React.ComponentProps<'thead'>) {
   return (
     <thead
@@ -29,6 +41,12 @@ function TableHeader({ className, ...props }: React.ComponentProps<'thead'>) {
   )
 }
 
+/**
+ * @component TableBody
+ * @description The body section of a table (`<tbody>`).
+ * @param {React.ComponentProps<'tbody'>} props - Props for the `tbody` element.
+ * @returns {JSX.Element} The table body component.
+ */
 function TableBody({ className, ...props }: React.ComponentProps<'tbody'>) {
   return (
     <tbody
@@ -39,6 +57,12 @@ function TableBody({ className, ...props }: React.ComponentProps<'tbody'>) {
   )
 }
 
+/**
+ * @component TableFooter
+ * @description The footer section of a table (`<tfoot>`).
+ * @param {React.ComponentProps<'tfoot'>} props - Props for the `tfoot` element.
+ * @returns {JSX.Element} The table footer component.
+ */
 function TableFooter({ className, ...props }: React.ComponentProps<'tfoot'>) {
   return (
     <tfoot
@@ -52,6 +76,12 @@ function TableFooter({ className, ...props }: React.ComponentProps<'tfoot'>) {
   )
 }
 
+/**
+ * @component TableRow
+ * @description A row in a table (`<tr>`).
+ * @param {React.ComponentProps<'tr'>} props - Props for the `tr` element.
+ * @returns {JSX.Element} The table row component.
+ */
 function TableRow({ className, ...props }: React.ComponentProps<'tr'>) {
   return (
     <tr
@@ -65,6 +95,12 @@ function TableRow({ className, ...props }: React.ComponentProps<'tr'>) {
   )
 }
 
+/**
+ * @component TableHead
+ * @description A header cell in a table (`<th>`).
+ * @param {React.ComponentProps<'th'>} props - Props for the `th` element.
+ * @returns {JSX.Element} The table head component.
+ */
 function TableHead({ className, ...props }: React.ComponentProps<'th'>) {
   return (
     <th
@@ -78,6 +114,12 @@ function TableHead({ className, ...props }: React.ComponentProps<'th'>) {
   )
 }
 
+/**
+ * @component TableCell
+ * @description A standard cell in a table (`<td>`).
+ * @param {React.ComponentProps<'td'>} props - Props for the `td` element.
+ * @returns {JSX.Element} The table cell component.
+ */
 function TableCell({ className, ...props }: React.ComponentProps<'td'>) {
   return (
     <td
@@ -91,6 +133,12 @@ function TableCell({ className, ...props }: React.ComponentProps<'td'>) {
   )
 }
 
+/**
+ * @component TableCaption
+ * @description A caption for a table (`<caption>`).
+ * @param {React.ComponentProps<'caption'>} props - Props for the `caption` element.
+ * @returns {JSX.Element} The table caption component.
+ */
 function TableCaption({
   className,
   ...props

@@ -6,6 +6,17 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Search, Filter, X } from "lucide-react"
 import { mockCategories } from "@/lib/mock-data"
 
+/**
+ * @interface ProductFiltersProps
+ * @description Defines the props for the ProductFilters component.
+ * @property {string} searchTerm - The current value of the search term input.
+ * @property {(value: string) => void} onSearchChange - Callback to handle changes to the search term.
+ * @property {string} categoryFilter - The currently selected category filter.
+ * @property {(value: string) => void} onCategoryChange - Callback to handle changes to the category filter.
+ * @property {string} statusFilter - The currently selected status filter.
+ * @property {(value: string) => void} onStatusChange - Callback to handle changes to the status filter.
+ * @property {() => void} onReset - Callback to reset all filters to their default state.
+ */
 interface ProductFiltersProps {
   searchTerm: string
   onSearchChange: (value: string) => void
@@ -16,6 +27,13 @@ interface ProductFiltersProps {
   onReset: () => void
 }
 
+/**
+ * @component ProductFilters
+ * @description Renders a set of filter controls for the product list, including a search input,
+ * category select, and status select. It also provides a button to reset all filters.
+ * @param {ProductFiltersProps} props - The props for the component.
+ * @returns {JSX.Element} The product filters component.
+ */
 export function ProductFilters({
   searchTerm,
   onSearchChange,

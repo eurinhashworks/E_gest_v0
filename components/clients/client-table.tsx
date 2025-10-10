@@ -7,6 +7,14 @@ import { Edit, Trash2, Eye, Mail, Phone } from "lucide-react"
 import type { Client } from "@/lib/mock-data"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 
+/**
+ * @interface ClientTableProps
+ * @description Defines the props for the ClientTable component.
+ * @property {Client[]} clients - An array of client objects to display in the table.
+ * @property {(client: Client) => void} onEdit - Callback function to handle editing a client.
+ * @property {(client: Client) => void} onDelete - Callback function to handle deleting a client.
+ * @property {(client: Client) => void} onView - Callback function to handle viewing a client's details.
+ */
 interface ClientTableProps {
   clients: Client[]
   onEdit: (client: Client) => void
@@ -14,7 +22,19 @@ interface ClientTableProps {
   onView: (client: Client) => void
 }
 
+/**
+ * @component ClientTable
+ * @description Renders a table of clients with their details and action buttons.
+ * @param {ClientTableProps} props - The props for the component.
+ * @returns {JSX.Element} The client table component.
+ */
 export function ClientTable({ clients, onEdit, onDelete, onView }: ClientTableProps) {
+  /**
+   * @function getSegmentBadge
+   * @description Returns a styled badge based on the client's segment.
+   * @param {Client["segment"]} segment - The client segment.
+   * @returns {JSX.Element} A Badge component.
+   */
   const getSegmentBadge = (segment: Client["segment"]) => {
     const segmentConfig = {
       vip: { label: "VIP", className: "bg-primary/10 text-primary border-primary" },
@@ -30,6 +50,12 @@ export function ClientTable({ clients, onEdit, onDelete, onView }: ClientTablePr
     )
   }
 
+  /**
+   * @function formatPrice
+   * @description Formats a number into a currency string (EUR).
+   * @param {number} price - The price to format.
+   * @returns {string} The formatted price string.
+   */
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("fr-FR", {
       style: "currency",
@@ -37,6 +63,12 @@ export function ClientTable({ clients, onEdit, onDelete, onView }: ClientTablePr
     }).format(price)
   }
 
+  /**
+   * @function formatDate
+   * @description Formats a date string into a localized date string (fr-FR).
+   * @param {string} date - The date string to format.
+   * @returns {string} The formatted date string.
+   */
   const formatDate = (date: string) => {
     return new Date(date).toLocaleDateString("fr-FR", {
       day: "2-digit",
@@ -45,6 +77,12 @@ export function ClientTable({ clients, onEdit, onDelete, onView }: ClientTablePr
     })
   }
 
+  /**
+   * @function getInitials
+   * @description Extracts the initials from a full name to be used in an avatar fallback.
+   * @param {string} name - The full name of the client.
+   * @returns {string} The initials of the client (up to 2 characters).
+   */
   const getInitials = (name: string) => {
     return name
       .split(" ")
