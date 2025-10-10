@@ -3,7 +3,7 @@ import type { Metadata } from "next"
 import { GeistSans } from "geist/font/sans"
 import { GeistMono } from "geist/font/mono"
 import { Analytics } from "@vercel/analytics/next"
-import { AuthProvider } from "@/lib/auth-context"
+import { ClerkProvider } from "@clerk/nextjs"
 import { Toaster } from "@/components/ui/toaster"
 import { Suspense } from "react"
 import "./globals.css"
@@ -20,16 +20,16 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="fr">
-      <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
-        <Suspense fallback={<div>Loading...</div>}>
-          <AuthProvider>
+    <ClerkProvider>
+      <html lang="fr">
+        <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
+          <Suspense fallback={<div>Loading...</div>}>
             {children}
             <Toaster />
-          </AuthProvider>
-        </Suspense>
-        <Analytics />
-      </body>
-    </html>
+          </Suspense>
+          <Analytics />
+        </body>
+      </html>
+    </ClerkProvider>
   )
 }

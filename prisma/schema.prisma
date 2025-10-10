@@ -1,0 +1,105 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Organization {
+  id        String    @id @default(cuid())
+  clerkId   String    @unique
+  name      String
+  users     User[]
+  products  Product[]
+  customers Customer[]
+  sales     Sale[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model User {
+  id             String        @id @default(cuid())
+  clerkId        String        @unique
+  email          String        @unique
+  firstName      String?
+  lastName       String?
+  role           String        @default("employee") // admin, manager, employee
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+  organizationId String?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+}
+
+model Product {
+  id             String       @id @default(cuid())
+  name           String
+  description    String?
+  price          Float
+  stock          Int
+  sku            String?      @unique
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  organizationId String
+  categoryId     String?
+  category       Category?    @relation(fields: [categoryId], references: [id])
+  supplierId     String?
+  supplier       Supplier?    @relation(fields: [supplierId], references: [id])
+  saleItems      SaleItem[]
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  name      String
+  products  Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Supplier {
+  id        String    @id @default(cuid())
+  name      String
+  contact   String?
+  products  Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Customer {
+  id             String       @id @default(cuid())
+  firstName      String
+  lastName       String
+  email          String?      @unique
+  phone          String?
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  organizationId String
+  sales          Sale[]
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+}
+
+model Sale {
+  id             String       @id @default(cuid())
+  total          Float
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  organizationId String
+  customerId     String
+  customer       Customer     @relation(fields: [customerId], references: [id])
+  items          SaleItem[]
+  createdAt      DateTime     @default(now())
+}
+
+model SaleItem {
+  id        String  @id @default(cuid())
+  saleId    String
+  sale      Sale    @relation(fields: [saleId], references: [id])
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+  price     Float
+}

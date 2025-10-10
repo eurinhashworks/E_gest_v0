@@ -1,5 +1,14 @@
-import { LoginForm } from "@/components/login-form"
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
 export default function HomePage() {
-  return <LoginForm />
+  const { userId } = auth();
+
+  if (userId) {
+    redirect("/dashboard");
+  } else {
+    redirect("/sign-in");
+  }
+
+  return null;
 }
