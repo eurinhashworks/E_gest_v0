@@ -83,11 +83,25 @@ const mockJournalEntries: JournalEntry[] = [
   },
 ]
 
+/**
+ * @page JournalPage
+ * @description Renders the journal page, which displays a timeline of system-wide activities.
+ * It allows users to filter entries by search term, type, and action.
+ *
+ * @state {string} searchTerm - The current search term for filtering entries.
+ * @state {string} typeFilter - The current filter for the entry type (e.g., 'product', 'sale').
+ * @state {string} actionFilter - The current filter for the action type (e.g., 'create', 'update').
+ *
+ * @returns {JSX.Element} The journal page component.
+ */
 export default function JournalPage() {
   const [searchTerm, setSearchTerm] = useState("")
   const [typeFilter, setTypeFilter] = useState("all")
   const [actionFilter, setActionFilter] = useState("all")
 
+  /**
+   * @description A memoized computation that filters the journal entries based on the current search and filter states.
+   */
   const filteredEntries = useMemo(() => {
     return mockJournalEntries.filter((entry) => {
       const matchesSearch =
@@ -99,6 +113,12 @@ export default function JournalPage() {
     })
   }, [searchTerm, typeFilter, actionFilter])
 
+  /**
+   * @function getTypeIcon
+   * @description Returns an appropriate icon based on the journal entry type.
+   * @param {JournalEntry["type"]} type - The type of the journal entry.
+   * @returns {JSX.Element} An icon component.
+   */
   const getTypeIcon = (type: JournalEntry["type"]) => {
     switch (type) {
       case "product":
@@ -114,6 +134,12 @@ export default function JournalPage() {
     }
   }
 
+  /**
+   * @function getActionBadge
+   * @description Returns a styled badge based on the journal entry's action type.
+   * @param {JournalEntry["action"]} action - The action type of the journal entry.
+   * @returns {JSX.Element} A Badge component.
+   */
   const getActionBadge = (action: JournalEntry["action"]) => {
     const config = {
       create: { label: "Création", className: "bg-success/10 text-success border-success" },
@@ -128,6 +154,12 @@ export default function JournalPage() {
     )
   }
 
+  /**
+   * @function formatTimestamp
+   * @description Formats a timestamp string into a localized date-time string (fr-FR).
+   * @param {string} timestamp - The timestamp string to format.
+   * @returns {string} The formatted date-time string.
+   */
   const formatTimestamp = (timestamp: string) => {
     const date = new Date(timestamp)
     return date.toLocaleString("fr-FR", {

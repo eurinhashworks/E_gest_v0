@@ -8,7 +8,18 @@ import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 
+/**
+ * @page DashboardPage
+ * @description The main dashboard page of the application, providing an overview of key business metrics.
+ * It uses `useMemo` hooks to calculate various statistics from mock data, such as financial summaries,
+ * sales data, product inventory status, and client information.
+ * @returns {JSX.Element} The dashboard page component.
+ */
 export default function DashboardPage() {
+  /**
+   * @description A memoized calculation of various key performance indicators (KPIs) across the application.
+   * This includes financial, sales, product, client, and supply order statistics.
+   */
   const stats = useMemo(() => {
     // Financial stats
     const totalRevenue = mockTransactions.filter((t) => t.type === "revenue").reduce((sum, t) => sum + t.amount, 0)
@@ -52,6 +63,9 @@ export default function DashboardPage() {
     }
   }, [])
 
+  /**
+   * @description A memoized calculation to determine the top 5 best-selling products based on revenue.
+   */
   const topProducts = useMemo(() => {
     const productSales = new Map<string, { name: string; quantity: number; revenue: number }>()
 
@@ -69,14 +83,26 @@ export default function DashboardPage() {
       .slice(0, 5)
   }, [])
 
+  /**
+   * @description A memoized calculation to determine the top 5 clients based on total spending.
+   */
   const topClients = useMemo(() => {
     return [...mockClients].sort((a, b) => b.totalSpent - a.totalSpent).slice(0, 5)
   }, [])
 
+  /**
+   * @description A memoized calculation to get the 5 most recent sales orders.
+   */
   const recentOrders = useMemo(() => {
     return [...mockSales].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).slice(0, 5)
   }, [])
 
+  /**
+   * @function formatPrice
+   * @description Formats a number into a currency string (EUR).
+   * @param {number} price - The price to format.
+   * @returns {string} The formatted price string.
+   */
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("fr-FR", {
       style: "currency",
@@ -84,6 +110,12 @@ export default function DashboardPage() {
     }).format(price)
   }
 
+  /**
+   * @function formatDate
+   * @description Formats a date string into a short, localized date string (fr-FR).
+   * @param {string} date - The date string to format.
+   * @returns {string} The formatted date string.
+   */
   const formatDate = (date: string) => {
     return new Date(date).toLocaleDateString("fr-FR", {
       day: "2-digit",
@@ -91,6 +123,12 @@ export default function DashboardPage() {
     })
   }
 
+  /**
+   * @function getInitials
+   * @description Extracts the initials from a full name for use in an avatar fallback.
+   * @param {string} name - The full name.
+   * @returns {string} The initials (up to 2 characters).
+   */
   const getInitials = (name: string) => {
     return name
       .split(" ")

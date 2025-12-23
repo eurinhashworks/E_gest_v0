@@ -11,6 +11,21 @@ import { mockUsers, type User } from "@/lib/mock-data"
 import { Plus, Search, Users, UserCheck, UserX, Shield } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 
+/**
+ * @page UsersPage
+ * @description This page provides a comprehensive interface for managing users.
+ * It includes functionality for viewing, creating, editing, and deleting users,
+ * as well as viewing permissions and displaying key user metrics.
+ *
+ * @state {User[]} users - The list of all users.
+ * @state {string} searchQuery - The current search term for filtering users.
+ * @state {User | undefined} selectedUser - The user currently selected for editing.
+ * @state {User | null} permissionsUser - The user whose permissions are being viewed.
+ * @state {boolean} isFormOpen - Controls the visibility of the user creation/edit form dialog.
+ * @state {boolean} isPermissionsOpen - Controls the visibility of the permissions view dialog.
+ *
+ * @returns {JSX.Element} The users management page component.
+ */
 export default function UsersPage() {
   const [users, setUsers] = useState(mockUsers)
   const [searchQuery, setSearchQuery] = useState("")
@@ -27,6 +42,7 @@ export default function UsersPage() {
       user.role.toLowerCase().includes(searchQuery.toLowerCase()),
   )
 
+  /** @function handleSave - Handles saving user data from the form, for both creation and updates. */
   const handleSave = (userData: Partial<User>) => {
     if (selectedUser) {
       setUsers(users.map((u) => (u.id === selectedUser.id ? { ...u, ...userData } : u)))
@@ -51,11 +67,13 @@ export default function UsersPage() {
     setSelectedUser(undefined)
   }
 
+  /** @function handleEdit - Opens the form dialog to edit an existing user. */
   const handleEdit = (user: User) => {
     setSelectedUser(user)
     setIsFormOpen(true)
   }
 
+  /** @function handleDelete - Deletes a user from the state and shows a toast notification. */
   const handleDelete = (id: string) => {
     setUsers(users.filter((u) => u.id !== id))
     toast({
@@ -65,11 +83,13 @@ export default function UsersPage() {
     })
   }
 
+  /** @function handleViewPermissions - Opens the dialog to view a user's permissions. */
   const handleViewPermissions = (user: User) => {
     setPermissionsUser(user)
     setIsPermissionsOpen(true)
   }
 
+  /** @function handleAddNew - Opens the form dialog to create a new user. */
   const handleAddNew = () => {
     setSelectedUser(undefined)
     setIsFormOpen(true)

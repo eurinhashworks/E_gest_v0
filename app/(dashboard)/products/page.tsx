@@ -21,6 +21,22 @@ import {
 } from "@/components/ui/alert-dialog"
 import { useToast } from "@/hooks/use-toast"
 
+/**
+ * @page ProductsPage
+ * @description This page provides a comprehensive interface for managing products.
+ * It includes functionality for viewing, creating, editing, and deleting products,
+ * as well as filtering the product list and displaying key inventory metrics.
+ *
+ * @state {Product[]} products - The list of all products.
+ * @state {string} searchTerm - The current search term for filtering products.
+ * @state {string} categoryFilter - The current category filter for products.
+ * @state {string} statusFilter - The current status filter for products.
+ * @state {boolean} isFormOpen - Controls the visibility of the product creation/edit form dialog.
+ * @state {boolean} isDeleteDialogOpen - Controls the visibility of the delete confirmation dialog.
+ * @state {Product | null} selectedProduct - The product currently selected for an action (edit, view, delete).
+ *
+ * @returns {JSX.Element} The products management page component.
+ */
 export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>(mockProducts)
   const [searchTerm, setSearchTerm] = useState("")
@@ -43,21 +59,25 @@ export default function ProductsPage() {
     return matchesSearch && matchesCategory && matchesStatus
   })
 
+  /** @function handleCreate - Opens the form dialog to create a new product. */
   const handleCreate = () => {
     setSelectedProduct(null)
     setIsFormOpen(true)
   }
 
+  /** @function handleEdit - Opens the form dialog to edit an existing product. */
   const handleEdit = (product: Product) => {
     setSelectedProduct(product)
     setIsFormOpen(true)
   }
 
+  /** @function handleDelete - Opens the delete confirmation dialog for a product. */
   const handleDelete = (product: Product) => {
     setSelectedProduct(product)
     setIsDeleteDialogOpen(true)
   }
 
+  /** @function confirmDelete - Deletes the selected product from the state and shows a toast notification. */
   const confirmDelete = () => {
     if (selectedProduct) {
       setProducts(products.filter((p) => p.id !== selectedProduct.id))
@@ -70,6 +90,7 @@ export default function ProductsPage() {
     setSelectedProduct(null)
   }
 
+  /** @function handleSubmit - Handles the submission of the product form for both creation and updates. */
   const handleSubmit = (productData: Partial<Product>) => {
     if (selectedProduct) {
       setProducts(
@@ -99,11 +120,13 @@ export default function ProductsPage() {
     setSelectedProduct(null)
   }
 
+  /** @function handleView - Placeholder for viewing product details. Currently selects the product. */
   const handleView = (product: Product) => {
     setSelectedProduct(product)
     // Could open a detailed view dialog
   }
 
+  /** @function handleReset - Resets all active filters to their default states. */
   const handleReset = () => {
     setSearchTerm("")
     setCategoryFilter("all")

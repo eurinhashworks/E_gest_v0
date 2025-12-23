@@ -9,12 +9,23 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { mockNotifications, type Notification } from "@/lib/mock-data"
 import { useToast } from "@/hooks/use-toast"
 
+/**
+ * @page NotificationsPage
+ * @description Renders the notifications page, which displays a list of system notifications.
+ * It allows users to view all, unread, or read notifications in a tabbed interface and mark all as read.
+ * @state {Notification[]} notifications - The list of all notification objects.
+ * @returns {JSX.Element} The notifications page component.
+ */
 export default function NotificationsPage() {
   const [notifications, setNotifications] = useState(mockNotifications)
   const { toast } = useToast()
 
   const unreadCount = notifications.filter((n) => !n.read).length
 
+  /**
+   * @function handleMarkAllRead
+   * @description Marks all notifications as read and displays a confirmation toast.
+   */
   const handleMarkAllRead = () => {
     setNotifications(notifications.map((n) => ({ ...n, read: true })))
     toast({
@@ -23,6 +34,12 @@ export default function NotificationsPage() {
     })
   }
 
+  /**
+   * @function getNotificationIcon
+   * @description Returns an appropriate icon based on the notification type.
+   * @param {Notification["type"]} type - The type of the notification.
+   * @returns {JSX.Element} An icon component.
+   */
   const getNotificationIcon = (type: Notification["type"]) => {
     switch (type) {
       case "warning":
@@ -36,6 +53,12 @@ export default function NotificationsPage() {
     }
   }
 
+  /**
+   * @function getNotificationColor
+   * @description Returns a border color class based on the notification type.
+   * @param {Notification["type"]} type - The type of the notification.
+   * @returns {string} A Tailwind CSS class for the border color.
+   */
   const getNotificationColor = (type: Notification["type"]) => {
     switch (type) {
       case "warning":
@@ -49,6 +72,12 @@ export default function NotificationsPage() {
     }
   }
 
+  /**
+   * @function formatTimestamp
+   * @description Formats a timestamp string into a localized date-time string (fr-FR).
+   * @param {string} timestamp - The timestamp string to format.
+   * @returns {string} The formatted date-time string.
+   */
   const formatTimestamp = (timestamp: string) => {
     const date = new Date(timestamp)
     return date.toLocaleString("fr-FR", {

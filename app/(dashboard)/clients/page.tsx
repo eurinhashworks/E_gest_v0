@@ -24,6 +24,22 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Search, Filter } from "lucide-react"
 
+/**
+ * @page ClientsPage
+ * @description This page provides a comprehensive interface for managing clients.
+ * It includes functionality for viewing, creating, editing, and deleting clients,
+ * as well as filtering the client list and displaying key performance indicators (KPIs).
+ *
+ * @state {Client[]} clients - The list of all clients.
+ * @state {string} searchTerm - The current search term for filtering clients.
+ * @state {string} segmentFilter - The current segment filter for clients.
+ * @state {boolean} isFormOpen - Controls the visibility of the client creation/edit form dialog.
+ * @state {boolean} isDetailOpen - Controls the visibility of the client detail view dialog.
+ * @state {boolean} isDeleteDialogOpen - Controls the visibility of the delete confirmation dialog.
+ * @state {Client | null} selectedClient - The client currently selected for an action (edit, view, delete).
+ *
+ * @returns {JSX.Element} The clients management page component.
+ */
 export default function ClientsPage() {
   const [clients, setClients] = useState<Client[]>(mockClients)
   const [searchTerm, setSearchTerm] = useState("")
@@ -43,21 +59,25 @@ export default function ClientsPage() {
     return matchesSearch && matchesSegment
   })
 
+  /** @function handleCreate - Opens the form dialog to create a new client. */
   const handleCreate = () => {
     setSelectedClient(null)
     setIsFormOpen(true)
   }
 
+  /** @function handleEdit - Opens the form dialog to edit an existing client. */
   const handleEdit = (client: Client) => {
     setSelectedClient(client)
     setIsFormOpen(true)
   }
 
+  /** @function handleDelete - Opens the delete confirmation dialog for a client. */
   const handleDelete = (client: Client) => {
     setSelectedClient(client)
     setIsDeleteDialogOpen(true)
   }
 
+  /** @function confirmDelete - Deletes the selected client from the state and shows a toast notification. */
   const confirmDelete = () => {
     if (selectedClient) {
       setClients(clients.filter((c) => c.id !== selectedClient.id))
@@ -70,6 +90,7 @@ export default function ClientsPage() {
     setSelectedClient(null)
   }
 
+  /** @function handleSubmit - Handles the submission of the client form for both creation and updates. */
   const handleSubmit = (clientData: Partial<Client>) => {
     if (selectedClient) {
       setClients(
@@ -101,6 +122,7 @@ export default function ClientsPage() {
     setSelectedClient(null)
   }
 
+  /** @function handleView - Opens the detail dialog to view a client's information. */
   const handleView = (client: Client) => {
     setSelectedClient(client)
     setIsDetailOpen(true)

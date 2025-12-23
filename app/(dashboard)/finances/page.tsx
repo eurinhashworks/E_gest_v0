@@ -24,6 +24,23 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Search, Filter } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
+/**
+ * @page FinancesPage
+ * @description This page provides a comprehensive interface for managing financial transactions.
+ * It includes tabbed views for transactions, accounts, and category analysis.
+ * Features include creating, editing, deleting, and filtering transactions.
+ *
+ * @state {Transaction[]} transactions - The list of all financial transactions.
+ * @state {FinancialAccount[]} accounts - The list of all financial accounts.
+ * @state {string} searchTerm - The current search term for filtering transactions.
+ * @state {string} typeFilter - The current transaction type filter ('all', 'revenue', 'expense').
+ * @state {string} categoryFilter - The current transaction category filter.
+ * @state {boolean} isFormOpen - Controls the visibility of the transaction creation/edit form dialog.
+ * @state {boolean} isDeleteDialogOpen - Controls the visibility of the delete confirmation dialog.
+ * @state {Transaction | null} selectedTransaction - The transaction currently selected for an action.
+ *
+ * @returns {JSX.Element} The finances management page component.
+ */
 export default function FinancesPage() {
   const [transactions, setTransactions] = useState<Transaction[]>(mockTransactions)
   const [accounts] = useState(mockFinancialAccounts)
@@ -45,6 +62,9 @@ export default function FinancesPage() {
     return matchesSearch && matchesType && matchesCategory
   })
 
+  /**
+   * @description A memoized calculation of key financial statistics like revenue, expenses, net income, and total balance.
+   */
   const stats = useMemo(() => {
     const totalRevenue = transactions.filter((t) => t.type === "revenue").reduce((sum, t) => sum + t.amount, 0)
     const totalExpenses = transactions.filter((t) => t.type === "expense").reduce((sum, t) => sum + t.amount, 0)
@@ -54,6 +74,9 @@ export default function FinancesPage() {
     return { totalRevenue, totalExpenses, netIncome, totalBalance }
   }, [transactions, accounts])
 
+  /**
+   * @description A memoized calculation that groups transactions by category and sums up revenue and expenses for each.
+   */
   const categories = useMemo(() => {
     const categoryMap = new Map<string, { revenue: number; expense: number }>()
     transactions.forEach((t) => {
@@ -72,21 +95,25 @@ export default function FinancesPage() {
     }))
   }, [transactions])
 
+  /** @function handleCreate - Opens the form dialog to create a new transaction. */
   const handleCreate = () => {
     setSelectedTransaction(null)
     setIsFormOpen(true)
   }
 
+  /** @function handleEdit - Opens the form dialog to edit an existing transaction. */
   const handleEdit = (transaction: Transaction) => {
     setSelectedTransaction(transaction)
     setIsFormOpen(true)
   }
 
+  /** @function handleDelete - Opens the delete confirmation dialog for a transaction. */
   const handleDelete = (transaction: Transaction) => {
     setSelectedTransaction(transaction)
     setIsDeleteDialogOpen(true)
   }
 
+  /** @function confirmDelete - Deletes the selected transaction from the state and shows a toast notification. */
   const confirmDelete = () => {
     if (selectedTransaction) {
       setTransactions(transactions.filter((t) => t.id !== selectedTransaction.id))
@@ -99,6 +126,7 @@ export default function FinancesPage() {
     setSelectedTransaction(null)
   }
 
+  /** @function handleSubmit - Handles the submission of the transaction form for both creation and updates. */
   const handleSubmit = (transactionData: Partial<Transaction>) => {
     if (selectedTransaction) {
       setTransactions(
@@ -129,6 +157,12 @@ export default function FinancesPage() {
     setSelectedTransaction(null)
   }
 
+  /**
+   * @function formatPrice
+   * @description Formats a number into a currency string (EUR).
+   * @param {number} price - The price to format.
+   * @returns {string} The formatted price string.
+   */
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("fr-FR", {
       style: "currency",
