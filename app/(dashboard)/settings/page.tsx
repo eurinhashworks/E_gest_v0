@@ -8,6 +8,13 @@ import { Switch } from "@/components/ui/switch"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
+/**
+ * @page SettingsPage
+ * @description Renders the settings page, which is organized into tabs for different categories:
+ * General, Notifications, Security, and Users. Each tab contains forms and controls for managing
+ * the respective settings.
+ * @returns {JSX.Element} The settings page component.
+ */
 export default function SettingsPage() {
   return (
     <div className="space-y-6">

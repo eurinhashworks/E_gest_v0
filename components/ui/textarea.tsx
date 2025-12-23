@@ -2,6 +2,12 @@ import * as React from 'react'
 
 import { cn } from '@/lib/utils'
 
+/**
+ * @component Textarea
+ * @description Renders a styled textarea element for multi-line text input.
+ * @param {React.ComponentProps<'textarea'>} props - Props for the textarea component.
+ * @returns {JSX.Element} The styled textarea component.
+ */
 function Textarea({ className, ...props }: React.ComponentProps<'textarea'>) {
   return (
     <textarea

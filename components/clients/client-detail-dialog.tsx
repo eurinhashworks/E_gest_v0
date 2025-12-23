@@ -9,18 +9,38 @@ import { mockSales, mockClientInteractions } from "@/lib/mock-data"
 import { User, Mail, Phone, Building, MapPin, ShoppingCart, DollarSign, Calendar, MessageSquare } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
+/**
+ * @interface ClientDetailDialogProps
+ * @description Defines the props for the ClientDetailDialog component.
+ * @property {Client | null} client - The client object to display. If null, the dialog will not render.
+ * @property {boolean} open - Controls whether the dialog is open or closed.
+ * @property {(open: boolean) => void} onOpenChange - Callback function to handle changes in the dialog's open state.
+ */
 interface ClientDetailDialogProps {
   client: Client | null
   open: boolean
   onOpenChange: (open: boolean) => void
 }
 
+/**
+ * @component ClientDetailDialog
+ * @description A dialog component that displays detailed information about a client.
+ * It includes contact information, address, key metrics, purchase history, and interactions.
+ * @param {ClientDetailDialogProps} props - The props for the component.
+ * @returns {JSX.Element | null} The dialog component or null if no client is provided.
+ */
 export function ClientDetailDialog({ client, open, onOpenChange }: ClientDetailDialogProps) {
   if (!client) return null
 
   const clientSales = mockSales.filter((sale) => sale.client.id === client.id)
   const clientInteractions = mockClientInteractions.filter((interaction) => interaction.clientId === client.id)
 
+  /**
+   * @function formatPrice
+   * @description Formats a number into a currency string (EUR).
+   * @param {number} price - The price to format.
+   * @returns {string} The formatted price string.
+   */
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("fr-FR", {
       style: "currency",
@@ -28,6 +48,12 @@ export function ClientDetailDialog({ client, open, onOpenChange }: ClientDetailD
     }).format(price)
   }
 
+  /**
+   * @function formatDate
+   * @description Formats a date string into a localized date string (fr-FR).
+   * @param {string} date - The date string to format.
+   * @returns {string} The formatted date string.
+   */
   const formatDate = (date: string) => {
     return new Date(date).toLocaleDateString("fr-FR", {
       day: "2-digit",
@@ -36,6 +62,12 @@ export function ClientDetailDialog({ client, open, onOpenChange }: ClientDetailD
     })
   }
 
+  /**
+   * @function getSegmentBadge
+   * @description Returns a styled badge based on the client's segment.
+   * @param {Client["segment"]} segment - The client segment.
+   * @returns {JSX.Element} A Badge component.
+   */
   const getSegmentBadge = (segment: Client["segment"]) => {
     const segmentConfig = {
       vip: { label: "VIP", className: "bg-primary/10 text-primary border-primary" },

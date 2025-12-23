@@ -12,6 +12,14 @@ import { useAuth } from "@/lib/auth-context"
 import { ShoppingBag, AlertCircle } from "lucide-react"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 
+/**
+ * @component LoginForm
+ * @description Renders a login form for user authentication.
+ * It manages form state for email and password, handles submission,
+ * displays loading and error states, and uses the `useAuth` hook to perform login.
+ * On successful login, it redirects the user to the dashboard.
+ * @returns {JSX.Element} The login form component.
+ */
 export function LoginForm() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -20,6 +28,13 @@ export function LoginForm() {
   const { login } = useAuth()
   const router = useRouter()
 
+  /**
+   * @function handleSubmit
+   * @description Handles the form submission for user login.
+   * It prevents the default form submission, sets loading state,
+   * calls the login function from the auth context, and handles success or error responses.
+   * @param {React.FormEvent} e - The form event.
+   */
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError("")

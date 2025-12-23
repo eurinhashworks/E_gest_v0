@@ -5,6 +5,13 @@ import * as LabelPrimitive from '@radix-ui/react-label'
 
 import { cn } from '@/lib/utils'
 
+/**
+ * @component Label
+ * @description Renders an accessible label component, often associated with a form input.
+ * It is based on the Radix UI Label primitive.
+ * @param {React.ComponentProps<typeof LabelPrimitive.Root>} props - Props for the component.
+ * @returns {JSX.Element} The styled label component.
+ */
 function Label({
   className,
   ...props

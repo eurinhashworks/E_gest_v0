@@ -6,15 +6,35 @@ import { Separator } from "@/components/ui/separator"
 import type { Sale } from "@/lib/mock-data"
 import { Package, CreditCard, MapPin, FileText, Calendar, User } from "lucide-react"
 
+/**
+ * @interface SaleDetailDialogProps
+ * @description Defines the props for the SaleDetailDialog component.
+ * @property {Sale | null} sale - The sale object to display. If null, the dialog will not render.
+ * @property {boolean} open - Controls whether the dialog is open or closed.
+ * @property {(open: boolean) => void} onOpenChange - Callback function to handle changes in the dialog's open state.
+ */
 interface SaleDetailDialogProps {
   sale: Sale | null
   open: boolean
   onOpenChange: (open: boolean) => void
 }
 
+/**
+ * @component SaleDetailDialog
+ * @description A dialog component that displays detailed information about a sale,
+ * including client details, order items, and financial summary.
+ * @param {SaleDetailDialogProps} props - The props for the component.
+ * @returns {JSX.Element | null} The dialog component or null if no sale is provided.
+ */
 export function SaleDetailDialog({ sale, open, onOpenChange }: SaleDetailDialogProps) {
   if (!sale) return null
 
+  /**
+   * @function formatPrice
+   * @description Formats a number into a currency string (EUR).
+   * @param {number} price - The price to format.
+   * @returns {string} The formatted price string.
+   */
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("fr-FR", {
       style: "currency",
@@ -22,6 +42,12 @@ export function SaleDetailDialog({ sale, open, onOpenChange }: SaleDetailDialogP
     }).format(price)
   }
 
+  /**
+   * @function formatDate
+   * @description Formats a date string into a localized date string (fr-FR).
+   * @param {string} date - The date string to format.
+   * @returns {string} The formatted date string.
+   */
   const formatDate = (date: string) => {
     return new Date(date).toLocaleDateString("fr-FR", {
       day: "2-digit",

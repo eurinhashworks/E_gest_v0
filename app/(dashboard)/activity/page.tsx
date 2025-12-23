@@ -11,6 +11,10 @@ import { format } from "date-fns"
 import { fr } from "date-fns/locale"
 import { Button } from "@/components/ui/button"
 
+/**
+ * @description A mapping of activity action types to their corresponding badge color classes.
+ * @type {Record<string, string>}
+ */
 const actionColors = {
   Création: "bg-green-100 text-green-800",
   Modification: "bg-blue-100 text-blue-800",
@@ -18,6 +22,12 @@ const actionColors = {
   Consultation: "bg-gray-100 text-gray-800",
 }
 
+/**
+ * @page ActivityPage
+ * @description Renders the activity log page, which displays a filterable table of user actions.
+ * It includes summary cards for key metrics and a search functionality to filter the logs.
+ * @returns {JSX.Element} The activity log page component.
+ */
 export default function ActivityPage() {
   const [logs, setLogs] = useState(mockActivityLogs)
   const [searchQuery, setSearchQuery] = useState("")

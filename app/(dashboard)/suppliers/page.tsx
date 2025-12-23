@@ -25,6 +25,23 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Search, Filter } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
+/**
+ * @page SuppliersPage
+ * @description This page provides a comprehensive interface for managing suppliers and their supply orders.
+ * It uses a tabbed interface to separate the suppliers list from the supply orders list.
+ * Features include creating, editing, and deleting suppliers, as well as filtering the supplier list.
+ *
+ * @state {Supplier[]} suppliers - The list of all suppliers.
+ * @state {SupplyOrder[]} supplyOrders - The list of all supply orders.
+ * @state {string} searchTerm - The current search term for filtering suppliers.
+ * @state {string} statusFilter - The current status filter for suppliers.
+ * @state {boolean} isFormOpen - Controls the visibility of the supplier creation/edit form dialog.
+ * @state {boolean} isDeleteDialogOpen - Controls the visibility of the delete confirmation dialog.
+ * @state {Supplier | null} selectedSupplier - The supplier currently selected for an action.
+ * @state {SupplyOrder | null} selectedOrder - The supply order currently selected for an action.
+ *
+ * @returns {JSX.Element} The suppliers management page component.
+ */
 export default function SuppliersPage() {
   const [suppliers, setSuppliers] = useState<Supplier[]>(mockSuppliers)
   const [supplyOrders, setSupplyOrders] = useState<SupplyOrder[]>(mockSupplyOrders)
@@ -45,21 +62,25 @@ export default function SuppliersPage() {
     return matchesSearch && matchesStatus
   })
 
+  /** @function handleCreate - Opens the form dialog to create a new supplier. */
   const handleCreate = () => {
     setSelectedSupplier(null)
     setIsFormOpen(true)
   }
 
+  /** @function handleEdit - Opens the form dialog to edit an existing supplier. */
   const handleEdit = (supplier: Supplier) => {
     setSelectedSupplier(supplier)
     setIsFormOpen(true)
   }
 
+  /** @function handleDelete - Opens the delete confirmation dialog for a supplier. */
   const handleDelete = (supplier: Supplier) => {
     setSelectedSupplier(supplier)
     setIsDeleteDialogOpen(true)
   }
 
+  /** @function confirmDelete - Deletes the selected supplier from the state and shows a toast notification. */
   const confirmDelete = () => {
     if (selectedSupplier) {
       setSuppliers(suppliers.filter((s) => s.id !== selectedSupplier.id))
@@ -72,6 +93,7 @@ export default function SuppliersPage() {
     setSelectedSupplier(null)
   }
 
+  /** @function handleSubmit - Handles the submission of the supplier form for both creation and updates. */
   const handleSubmit = (supplierData: Partial<Supplier>) => {
     if (selectedSupplier) {
       setSuppliers(
@@ -105,14 +127,17 @@ export default function SuppliersPage() {
     setSelectedSupplier(null)
   }
 
+  /** @function handleView - Placeholder for viewing supplier details. Currently selects the supplier. */
   const handleView = (supplier: Supplier) => {
     setSelectedSupplier(supplier)
   }
 
+  /** @function handleViewOrder - Placeholder for viewing supply order details. */
   const handleViewOrder = (order: SupplyOrder) => {
     setSelectedOrder(order)
   }
 
+  /** @function handleEditOrder - Placeholder for editing a supply order. Shows a toast notification. */
   const handleEditOrder = (order: SupplyOrder) => {
     toast({
       title: "Modification de commande",
@@ -120,6 +145,7 @@ export default function SuppliersPage() {
     })
   }
 
+  /** @function handleDeleteOrder - Deletes a supply order from the state and shows a toast notification. */
   const handleDeleteOrder = (order: SupplyOrder) => {
     setSupplyOrders(supplyOrders.filter((o) => o.id !== order.id))
     toast({

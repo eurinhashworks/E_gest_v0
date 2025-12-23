@@ -10,6 +10,12 @@ import {
   ToastViewport,
 } from '@/components/ui/toast'
 
+/**
+ * @component Toaster
+ * @description A component that renders all the toast notifications.
+ * It uses the `useToast` hook to get the list of toasts and maps over them to display each one.
+ * @returns {JSX.Element} The toaster component which provides the context and viewport for toasts.
+ */
 export function Toaster() {
   const { toasts } = useToast()
 

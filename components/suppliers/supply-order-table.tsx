@@ -6,6 +6,14 @@ import { Button } from "@/components/ui/button"
 import { Edit, Trash2, Eye } from "lucide-react"
 import type { SupplyOrder } from "@/lib/mock-data"
 
+/**
+ * @interface SupplyOrderTableProps
+ * @description Defines the props for the SupplyOrderTable component.
+ * @property {SupplyOrder[]} orders - An array of supply order objects to display.
+ * @property {(order: SupplyOrder) => void} onEdit - Callback function for editing an order.
+ * @property {(order: SupplyOrder) => void} onDelete - Callback function for deleting an order.
+ * @property {(order: SupplyOrder) => void} onView - Callback function for viewing an order's details.
+ */
 interface SupplyOrderTableProps {
   orders: SupplyOrder[]
   onEdit: (order: SupplyOrder) => void
@@ -13,7 +21,19 @@ interface SupplyOrderTableProps {
   onView: (order: SupplyOrder) => void
 }
 
+/**
+ * @component SupplyOrderTable
+ * @description Renders a table of supply orders with their details and action buttons.
+ * @param {SupplyOrderTableProps} props - The props for the component.
+ * @returns {JSX.Element} The supply order table component.
+ */
 export function SupplyOrderTable({ orders, onEdit, onDelete, onView }: SupplyOrderTableProps) {
+  /**
+   * @function getStatusBadge
+   * @description Returns a styled badge based on the supply order's status.
+   * @param {SupplyOrder["status"]} status - The status of the supply order.
+   * @returns {JSX.Element} A Badge component representing the order's status.
+   */
   const getStatusBadge = (status: SupplyOrder["status"]) => {
     const statusConfig = {
       pending: { label: "En attente", className: "bg-warning/10 text-warning border-warning" },
@@ -30,6 +50,12 @@ export function SupplyOrderTable({ orders, onEdit, onDelete, onView }: SupplyOrd
     )
   }
 
+  /**
+   * @function getPaymentBadge
+   * @description Returns a styled badge based on the supply order's payment status.
+   * @param {SupplyOrder["paymentStatus"]} status - The payment status of the order.
+   * @returns {JSX.Element} A Badge component representing the payment status.
+   */
   const getPaymentBadge = (status: SupplyOrder["paymentStatus"]) => {
     const statusConfig = {
       unpaid: { label: "Non payé", className: "bg-destructive/10 text-destructive border-destructive" },
@@ -44,6 +70,12 @@ export function SupplyOrderTable({ orders, onEdit, onDelete, onView }: SupplyOrd
     )
   }
 
+  /**
+   * @function formatPrice
+   * @description Formats a number into a currency string (EUR).
+   * @param {number} price - The price to format.
+   * @returns {string} The formatted price string.
+   */
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("fr-FR", {
       style: "currency",
@@ -51,6 +83,12 @@ export function SupplyOrderTable({ orders, onEdit, onDelete, onView }: SupplyOrd
     }).format(price)
   }
 
+  /**
+   * @function formatDate
+   * @description Formats a date string into a localized date string (fr-FR).
+   * @param {string} date - The date string to format.
+   * @returns {string} The formatted date string.
+   */
   const formatDate = (date: string) => {
     return new Date(date).toLocaleDateString("fr-FR", {
       day: "2-digit",

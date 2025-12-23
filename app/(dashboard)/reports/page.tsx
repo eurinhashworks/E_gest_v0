@@ -7,9 +7,21 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useState } from "react"
 
+/**
+ * @page ReportsPage
+ * @description Renders the reports and statistics page, allowing users to select a time period
+ * and view or export various pre-defined reports. It also includes a section for key performance indicators (KPIs).
+ * @state {string} period - The currently selected time period for the reports (e.g., 'month', 'year').
+ * @returns {JSX.Element} The reports page component.
+ */
 export default function ReportsPage() {
   const [period, setPeriod] = useState("month")
 
+  /**
+   * @description An array defining the standard reports available on the page.
+   * Each object contains details like the report's ID, title, description, and associated icon.
+   * @type {{id: string, title: string, description: string, icon: React.ElementType, color: string}[]}
+   */
   const reports = [
     {
       id: "sales",

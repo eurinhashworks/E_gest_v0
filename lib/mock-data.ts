@@ -1,3 +1,23 @@
+/**
+ * @interface Product
+ * @description Represents a product in the inventory.
+ * @property {string} id - The unique identifier for the product.
+ * @property {string} name - The name of the product.
+ * @property {string} sku - The stock keeping unit for the product.
+ * @property {string} category - The category the product belongs to.
+ * @property {number} price - The selling price of the product.
+ * @property {number} cost - The cost of acquiring the product.
+ * @property {number} stock - The current stock level of the product.
+ * @property {number} minStock - The minimum desired stock level.
+ * @property {"active" | "inactive" | "out_of_stock"} status - The current status of the product.
+ * @property {string} description - A detailed description of the product.
+ * @property {string[]} images - A list of URLs for product images.
+ * @property {ProductVariant[]} [variants] - Optional list of product variants.
+ * @property {string} supplier - The name of the product's supplier.
+ * @property {string} createdAt - The date the product was created.
+ * @property {string} updatedAt - The date the product was last updated.
+ * @property {string} createdBy - The user who created the product.
+ */
 export interface Product {
   id: string
   name: string
@@ -17,6 +37,16 @@ export interface Product {
   createdBy: string
 }
 
+/**
+ * @interface ProductVariant
+ * @description Represents a specific variant of a product, such as size or color.
+ * @property {string} id - The unique identifier for the variant.
+ * @property {string} name - The name of the variant (e.g., "Large, Blue").
+ * @property {string} sku - The stock keeping unit for the variant.
+ * @property {number} price - The price of the variant.
+ * @property {number} stock - The stock level of the variant.
+ * @property {Record<string, string>} attributes - The attributes of the variant (e.g., { color: "Blue", size: "L" }).
+ */
 export interface ProductVariant {
   id: string
   name: string
@@ -26,6 +56,14 @@ export interface ProductVariant {
   attributes: Record<string, string>
 }
 
+/**
+ * @interface Category
+ * @description Represents a product category.
+ * @property {string} id - The unique identifier for the category.
+ * @property {string} name - The name of the category.
+ * @property {string} description - A short description of the category.
+ * @property {number} productCount - The number of products in this category.
+ */
 export interface Category {
   id: string
   name: string
@@ -33,6 +71,29 @@ export interface Category {
   productCount: number
 }
 
+/**
+ * @interface Sale
+ * @description Represents a sales order.
+ * @property {string} id - The unique identifier for the sale.
+ * @property {string} orderNumber - The unique order number.
+ * @property {object} client - The client who made the purchase.
+ * @property {string} client.id - The client's ID.
+ * @property {string} client.name - The client's name.
+ * @property {string} client.email - The client's email.
+ * @property {SaleItem[]} items - The list of items included in the sale.
+ * @property {number} subtotal - The total price before tax and discount.
+ * @property {number} tax - The amount of tax applied.
+ * @property {number} discount - The amount of discount applied.
+ * @property {number} total - The final price of the sale.
+ * @property {"pending" | "confirmed" | "processing" | "shipped" | "delivered" | "cancelled"} status - The status of the order.
+ * @property {"unpaid" | "partial" | "paid" | "refunded"} paymentStatus - The payment status of the order.
+ * @property {"cash" | "card" | "transfer" | "check"} paymentMethod - The method of payment.
+ * @property {string} shippingAddress - The shipping address for the order.
+ * @property {string} notes - Any additional notes about the order.
+ * @property {string} createdAt - The date the sale was created.
+ * @property {string} updatedAt - The date the sale was last updated.
+ * @property {string} createdBy - The user who created the sale.
+ */
 export interface Sale {
   id: string
   orderNumber: string
@@ -56,6 +117,17 @@ export interface Sale {
   createdBy: string
 }
 
+/**
+ * @interface SaleItem
+ * @description Represents a single item within a sale.
+ * @property {string} id - The unique identifier for the sale item.
+ * @property {string} productId - The ID of the product.
+ * @property {string} productName - The name of the product.
+ * @property {string} sku - The SKU of the product.
+ * @property {number} quantity - The quantity of the product sold.
+ * @property {number} unitPrice - The price of a single unit of the product.
+ * @property {number} total - The total price for this item (quantity * unitPrice).
+ */
 export interface SaleItem {
   id: string
   productId: string
@@ -66,6 +138,26 @@ export interface SaleItem {
   total: number
 }
 
+/**
+ * @interface Client
+ * @description Represents a customer or client.
+ * @property {string} id - The unique identifier for the client.
+ * @property {string} name - The client's full name.
+ * @property {string} email - The client's email address.
+ * @property {string} phone - The client's phone number.
+ * @property {string} [company] - The client's company name, if applicable.
+ * @property {string} address - The client's street address.
+ * @property {string} city - The city of the client's address.
+ * @property {string} postalCode - The postal code of the client's address.
+ * @property {string} country - The country of the client's address.
+ * @property {"vip" | "regular" | "new" | "inactive"} segment - The client's segment.
+ * @property {number} totalPurchases - The total number of purchases made by the client.
+ * @property {number} totalSpent - The total amount of money spent by the client.
+ * @property {string} lastPurchase - The date of the client's last purchase.
+ * @property {string} notes - Any notes about the client.
+ * @property {string} createdAt - The date the client was added.
+ * @property {string} updatedAt - The date the client's information was last updated.
+ */
 export interface Client {
   id: string
   name: string
@@ -85,6 +177,17 @@ export interface Client {
   updatedAt: string
 }
 
+/**
+ * @interface ClientInteraction
+ * @description Represents an interaction with a client.
+ * @property {string} id - The unique identifier for the interaction.
+ * @property {string} clientId - The ID of the client involved in the interaction.
+ * @property {"email" | "phone" | "meeting" | "note"} type - The type of interaction.
+ * @property {string} subject - The subject or title of the interaction.
+ * @property {string} description - A detailed description of the interaction.
+ * @property {string} date - The date of the interaction.
+ * @property {string} createdBy - The user who logged the interaction.
+ */
 export interface ClientInteraction {
   id: string
   clientId: string
@@ -95,6 +198,27 @@ export interface ClientInteraction {
   createdBy: string
 }
 
+/**
+ * @interface Supplier
+ * @description Represents a product supplier.
+ * @property {string} id - The unique identifier for the supplier.
+ * @property {string} name - The name of the supplier.
+ * @property {string} email - The supplier's email address.
+ * @property {string} phone - The supplier's phone number.
+ * @property {string} address - The supplier's street address.
+ * @property {string} city - The city of the supplier's address.
+ * @property {string} postalCode - The postal code of the supplier's address.
+ * @property {string} country - The country of the supplier's address.
+ * @property {string} category - The category of products the supplier provides.
+ * @property {string} paymentTerms - The payment terms with the supplier.
+ * @property {number} totalOrders - The total number of orders placed with the supplier.
+ * @property {number} totalSpent - The total amount of money spent with the supplier.
+ * @property {string} lastOrder - The date of the last order placed with the supplier.
+ * @property {"active" | "inactive"} status - The current status of the supplier.
+ * @property {string} notes - Any notes about the supplier.
+ * @property {string} createdAt - The date the supplier was added.
+ * @property {string} updatedAt - The date the supplier's information was last updated.
+ */
 export interface Supplier {
   id: string
   name: string
@@ -115,6 +239,26 @@ export interface Supplier {
   updatedAt: string
 }
 
+/**
+ * @interface SupplyOrder
+ * @description Represents a purchase order made to a supplier.
+ * @property {string} id - The unique identifier for the supply order.
+ * @property {string} orderNumber - The unique order number.
+ * @property {object} supplier - The supplier the order was made to.
+ * @property {string} supplier.id - The supplier's ID.
+ * @property {string} supplier.name - The supplier's name.
+ * @property {SupplyOrderItem[]} items - The list of items in the order.
+ * @property {number} subtotal - The total price before tax.
+ * @property {number} tax - The amount of tax applied.
+ * @property {number} total - The final price of the order.
+ * @property {"pending" | "confirmed" | "shipped" | "received" | "cancelled"} status - The status of the order.
+ * @property {"unpaid" | "partial" | "paid"} paymentStatus - The payment status of the order.
+ * @property {string} expectedDelivery - The expected delivery date.
+ * @property {string} [actualDelivery] - The actual delivery date, if applicable.
+ * @property {string} notes - Any notes about the order.
+ * @property {string} createdAt - The date the order was created.
+ * @property {string} updatedAt - The date the order was last updated.
+ */
 export interface SupplyOrder {
   id: string
   orderNumber: string
@@ -135,6 +279,16 @@ export interface SupplyOrder {
   updatedAt: string
 }
 
+/**
+ * @interface SupplyOrderItem
+ * @description Represents a single item within a supply order.
+ * @property {string} id - The unique identifier for the supply order item.
+ * @property {string} productName - The name of the product.
+ * @property {string} sku - The SKU of the product.
+ * @property {number} quantity - The quantity of the product ordered.
+ * @property {number} unitPrice - The price of a single unit of the product.
+ * @property {number} total - The total price for this item (quantity * unitPrice).
+ */
 export interface SupplyOrderItem {
   id: string
   productName: string
@@ -144,6 +298,20 @@ export interface SupplyOrderItem {
   total: number
 }
 
+/**
+ * @interface Transaction
+ * @description Represents a financial transaction.
+ * @property {string} id - The unique identifier for the transaction.
+ * @property {"revenue" | "expense"} type - The type of transaction.
+ * @property {string} category - The category of the transaction.
+ * @property {number} amount - The amount of the transaction.
+ * @property {string} account - The financial account associated with the transaction.
+ * @property {string} description - A description of the transaction.
+ * @property {string} [reference] - A reference number for the transaction, if any.
+ * @property {string} date - The date of the transaction.
+ * @property {string} createdAt - The date the transaction was recorded.
+ * @property {string} createdBy - The user who recorded the transaction.
+ */
 export interface Transaction {
   id: string
   type: "revenue" | "expense"
@@ -157,6 +325,15 @@ export interface Transaction {
   createdBy: string
 }
 
+/**
+ * @interface FinancialAccount
+ * @description Represents a financial account, such as a bank account or cash.
+ * @property {string} id - The unique identifier for the account.
+ * @property {string} name - The name of the account.
+ * @property {"bank" | "cash" | "credit"} type - The type of account.
+ * @property {number} balance - The current balance of the account.
+ * @property {string} currency - The currency of the account.
+ */
 export interface FinancialAccount {
   id: string
   name: string
@@ -165,6 +342,21 @@ export interface FinancialAccount {
   currency: string
 }
 
+/**
+ * @interface User
+ * @description Represents a user of the application.
+ * @property {string} id - The unique identifier for the user.
+ * @property {string} name - The user's full name.
+ * @property {string} email - The user's email address.
+ * @property {"admin" | "manager" | "sales" | "viewer"} role - The user's role.
+ * @property {"active" | "inactive"} status - The user's status.
+ * @property {string} phone - The user's phone number.
+ * @property {string} [avatar] - The URL of the user's avatar image.
+ * @property {UserPermissions} permissions - The permissions assigned to the user.
+ * @property {string} lastLogin - The timestamp of the user's last login.
+ * @property {string} createdAt - The date the user was created.
+ * @property {string} updatedAt - The date the user's information was last updated.
+ */
 export interface User {
   id: string
   name: string
@@ -179,6 +371,46 @@ export interface User {
   updatedAt: string
 }
 
+/**
+ * @interface UserPermissions
+ * @description Defines the permissions for a user across different modules.
+ * @property {object} products - Permissions for the products module.
+ * @property {boolean} products.view - Can view products.
+ * @property {boolean} products.create - Can create products.
+ * @property {boolean} products.edit - Can edit products.
+ * @property {boolean} products.delete - Can delete products.
+ * @property {object} sales - Permissions for the sales module.
+ * @property {boolean} sales.view - Can view sales.
+ * @property {boolean} sales.create - Can create sales.
+ * @property {boolean} sales.edit - Can edit sales.
+ * @property {boolean} sales.delete - Can delete sales.
+ * @property {object} clients - Permissions for the clients module.
+ * @property {boolean} clients.view - Can view clients.
+ * @property {boolean} clients.create - Can create clients.
+ * @property {boolean} clients.edit - Can edit clients.
+ * @property {boolean} clients.delete - Can delete clients.
+ * @property {object} suppliers - Permissions for the suppliers module.
+ * @property {boolean} suppliers.view - Can view suppliers.
+ * @property {boolean} suppliers.create - Can create suppliers.
+ * @property {boolean} suppliers.edit - Can edit suppliers.
+ * @property {boolean} suppliers.delete - Can delete suppliers.
+ * @property {object} finances - Permissions for the finances module.
+ * @property {boolean} finances.view - Can view finances.
+ * @property {boolean} finances.create - Can create financial records.
+ * @property {boolean} finances.edit - Can edit financial records.
+ * @property {boolean} finances.delete - Can delete financial records.
+ * @property {object} reports - Permissions for the reports module.
+ * @property {boolean} reports.view - Can view reports.
+ * @property {boolean} reports.export - Can export reports.
+ * @property {object} settings - Permissions for the settings module.
+ * @property {boolean} settings.view - Can view settings.
+ * @property {boolean} settings.edit - Can edit settings.
+ * @property {object} users - Permissions for the users module.
+ * @property {boolean} users.view - Can view users.
+ * @property {boolean} users.create - Can create users.
+ * @property {boolean} users.edit - Can edit users.
+ * @property {boolean} users.delete - Can delete users.
+ */
 export interface UserPermissions {
   products: {
     view: boolean
@@ -226,6 +458,18 @@ export interface UserPermissions {
   }
 }
 
+/**
+ * @interface ActivityLog
+ * @description Represents a log of user activity.
+ * @property {string} id - The unique identifier for the log entry.
+ * @property {string} userId - The ID of the user who performed the action.
+ * @property {string} userName - The name of the user who performed the action.
+ * @property {string} action - The action performed (e.g., "Création", "Modification").
+ * @property {string} module - The module where the action occurred (e.g., "Produits", "Ventes").
+ * @property {string} details - Details about the action.
+ * @property {string} ipAddress - The IP address from which the action was performed.
+ * @property {string} timestamp - The timestamp of the action.
+ */
 export interface ActivityLog {
   id: string
   userId: string
@@ -237,6 +481,18 @@ export interface ActivityLog {
   timestamp: string
 }
 
+/**
+ * @interface Notification
+ * @description Represents a system notification for the user.
+ * @property {string} id - The unique identifier for the notification.
+ * @property {"info" | "warning" | "error" | "success"} type - The type of notification.
+ * @property {string} title - The title of the notification.
+ * @property {string} message - The message content of the notification.
+ * @property {string} module - The module related to the notification.
+ * @property {string} [link] - An optional link to a relevant page.
+ * @property {boolean} read - Whether the notification has been read.
+ * @property {string} createdAt - The date the notification was created.
+ */
 export interface Notification {
   id: string
   type: "info" | "warning" | "error" | "success"
@@ -248,6 +504,10 @@ export interface Notification {
   createdAt: string
 }
 
+/**
+ * @description Mock data for product categories.
+ * @type {Category[]}
+ */
 export const mockCategories: Category[] = [
   { id: "1", name: "Électronique", description: "Appareils électroniques", productCount: 45 },
   { id: "2", name: "Vêtements", description: "Vêtements et accessoires", productCount: 128 },
@@ -256,6 +516,10 @@ export const mockCategories: Category[] = [
   { id: "5", name: "Livres", description: "Livres et magazines", productCount: 89 },
 ]
 
+/**
+ * @description Mock data for products.
+ * @type {Product[]}
+ */
 export const mockProducts: Product[] = [
   {
     id: "1",
@@ -362,6 +626,10 @@ export const mockProducts: Product[] = [
   },
 ]
 
+/**
+ * @description Mock data for sales.
+ * @type {Sale[]}
+ */
 export const mockSales: Sale[] = [
   {
     id: "1",
@@ -502,6 +770,10 @@ export const mockSales: Sale[] = [
   },
 ]
 
+/**
+ * @description Mock data for clients.
+ * @type {Client[]}
+ */
 export const mockClients: Client[] = [
   {
     id: "1",
@@ -613,6 +885,10 @@ export const mockClients: Client[] = [
   },
 ]
 
+/**
+ * @description Mock data for client interactions.
+ * @type {ClientInteraction[]}
+ */
 export const mockClientInteractions: ClientInteraction[] = [
   {
     id: "1",
@@ -643,6 +919,10 @@ export const mockClientInteractions: ClientInteraction[] = [
   },
 ]
 
+/**
+ * @description Mock data for suppliers.
+ * @type {Supplier[]}
+ */
 export const mockSuppliers: Supplier[] = [
   {
     id: "1",
@@ -741,6 +1021,10 @@ export const mockSuppliers: Supplier[] = [
   },
 ]
 
+/**
+ * @description Mock data for supply orders.
+ * @type {SupplyOrder[]}
+ */
 export const mockSupplyOrders: SupplyOrder[] = [
   {
     id: "1",
@@ -861,6 +1145,10 @@ export const mockSupplyOrders: SupplyOrder[] = [
   },
 ]
 
+/**
+ * @description Mock data for transactions.
+ * @type {Transaction[]}
+ */
 export const mockTransactions: Transaction[] = [
   {
     id: "1",
@@ -980,6 +1268,10 @@ export const mockTransactions: Transaction[] = [
   },
 ]
 
+/**
+ * @description Mock data for financial accounts.
+ * @type {FinancialAccount[]}
+ */
 export const mockFinancialAccounts: FinancialAccount[] = [
   {
     id: "1",
@@ -1004,6 +1296,10 @@ export const mockFinancialAccounts: FinancialAccount[] = [
   },
 ]
 
+/**
+ * @description Default permissions for different user roles.
+ * @type {Record<string, UserPermissions>}
+ */
 export const defaultPermissions: Record<string, UserPermissions> = {
   admin: {
     products: { view: true, create: true, edit: true, delete: true },
@@ -1047,6 +1343,10 @@ export const defaultPermissions: Record<string, UserPermissions> = {
   },
 }
 
+/**
+ * @description Mock data for users.
+ * @type {User[]}
+ */
 export const mockUsers: User[] = [
   {
     id: "1",
@@ -1110,6 +1410,10 @@ export const mockUsers: User[] = [
   },
 ]
 
+/**
+ * @description Mock data for activity logs.
+ * @type {ActivityLog[]}
+ */
 export const mockActivityLogs: ActivityLog[] = [
   {
     id: "1",
@@ -1193,6 +1497,10 @@ export const mockActivityLogs: ActivityLog[] = [
   },
 ]
 
+/**
+ * @description Mock data for notifications.
+ * @type {Notification[]}
+ */
 export const mockNotifications: Notification[] = [
   {
     id: "1",

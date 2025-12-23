@@ -1,6 +1,12 @@
 import { Skeleton } from "@/components/ui/skeleton"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 
+/**
+ * @component UsersLoading
+ * @description Renders a skeleton loading state for the users page.
+ * This provides a visual placeholder that mimics the page's layout while data is being fetched.
+ * @returns {JSX.Element} The skeleton loading component for the users page.
+ */
 export default function UsersLoading() {
   return (
     <div className="space-y-6">

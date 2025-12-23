@@ -2,6 +2,12 @@ import * as React from 'react'
 
 import { cn } from '@/lib/utils'
 
+/**
+ * @component Input
+ * @description Renders a styled input element with support for various states like focus and disabled.
+ * @param {React.ComponentProps<'input'>} props - Props for the input component.
+ * @returns {JSX.Element} The styled input component.
+ */
 function Input({ className, type, ...props }: React.ComponentProps<'input'>) {
   return (
     <input

@@ -17,6 +17,10 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 
+/**
+ * @description Defines the primary navigation links for the sidebar.
+ * @type {{name: string, href: string, icon: React.ElementType}[]}
+ */
 const navigation = [
   { name: "Tableau de bord", href: "/dashboard", icon: Home },
   { name: "Produits", href: "/products", icon: Package },
@@ -29,11 +33,21 @@ const navigation = [
   { name: "Utilisateurs", href: "/users", icon: Shield },
 ]
 
+/**
+ * @description Defines the secondary navigation links for the sidebar, typically for settings and notifications.
+ * @type {{name: string, href: string, icon: React.ElementType}[]}
+ */
 const secondaryNavigation = [
   { name: "Notifications", href: "/notifications", icon: Bell },
   { name: "Paramètres", href: "/settings", icon: Settings },
 ]
 
+/**
+ * @component AppSidebar
+ * @description Renders the application's sidebar, including the logo, primary navigation, and secondary navigation links.
+ * It uses the current pathname to highlight the active link.
+ * @returns {JSX.Element} The sidebar component.
+ */
 export function AppSidebar() {
   const pathname = usePathname()
 

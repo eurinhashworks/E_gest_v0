@@ -24,6 +24,23 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Search, Filter } from "lucide-react"
 
+/**
+ * @page SalesPage
+ * @description This page provides a comprehensive interface for managing sales orders.
+ * It includes functionality for viewing, creating, editing, and deleting sales,
+ * as well as filtering the sales list and displaying key performance indicators (KPIs).
+ *
+ * @state {Sale[]} sales - The list of all sales orders.
+ * @state {string} searchTerm - The current search term for filtering sales.
+ * @state {string} statusFilter - The current order status filter.
+ * @state {string} paymentFilter - The current payment status filter.
+ * @state {boolean} isFormOpen - Controls the visibility of the sale creation/edit form dialog.
+ * @state {boolean} isDetailOpen - Controls the visibility of the sale detail view dialog.
+ * @state {boolean} isDeleteDialogOpen - Controls the visibility of the delete confirmation dialog.
+ * @state {Sale | null} selectedSale - The sale currently selected for an action (edit, view, delete).
+ *
+ * @returns {JSX.Element} The sales management page component.
+ */
 export default function SalesPage() {
   const [sales, setSales] = useState<Sale[]>(mockSales)
   const [searchTerm, setSearchTerm] = useState("")
@@ -45,21 +62,25 @@ export default function SalesPage() {
     return matchesSearch && matchesStatus && matchesPayment
   })
 
+  /** @function handleCreate - Opens the form dialog to create a new sale. */
   const handleCreate = () => {
     setSelectedSale(null)
     setIsFormOpen(true)
   }
 
+  /** @function handleEdit - Opens the form dialog to edit an existing sale. */
   const handleEdit = (sale: Sale) => {
     setSelectedSale(sale)
     setIsFormOpen(true)
   }
 
+  /** @function handleDelete - Opens the delete confirmation dialog for a sale. */
   const handleDelete = (sale: Sale) => {
     setSelectedSale(sale)
     setIsDeleteDialogOpen(true)
   }
 
+  /** @function confirmDelete - Deletes the selected sale from the state and shows a toast notification. */
   const confirmDelete = () => {
     if (selectedSale) {
       setSales(sales.filter((s) => s.id !== selectedSale.id))
@@ -72,6 +93,7 @@ export default function SalesPage() {
     setSelectedSale(null)
   }
 
+  /** @function handleSubmit - Handles the submission of the sale form for both creation and updates. */
   const handleSubmit = (saleData: Partial<Sale>) => {
     if (selectedSale) {
       setSales(
@@ -101,11 +123,13 @@ export default function SalesPage() {
     setSelectedSale(null)
   }
 
+  /** @function handleView - Opens the detail dialog to view a sale's information. */
   const handleView = (sale: Sale) => {
     setSelectedSale(sale)
     setIsDetailOpen(true)
   }
 
+  /** @function handleGenerateInvoice - Placeholder for generating an invoice. Shows a toast notification. */
   const handleGenerateInvoice = (sale: Sale) => {
     toast({
       title: "Facture générée",

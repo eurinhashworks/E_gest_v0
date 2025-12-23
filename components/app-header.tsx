@@ -15,10 +15,23 @@ import { Badge } from "@/components/ui/badge"
 import { useAuth } from "@/lib/auth-context"
 import { useRouter } from "next/navigation"
 
+/**
+ * @component AppHeader
+ * @description Renders the main application header.
+ * It includes a global search input, a notification button with a badge,
+ * and a user dropdown menu with profile and logout options.
+ * The component uses the `useAuth` hook to display user information and handle logout.
+ * @returns {JSX.Element} The header component.
+ */
 export function AppHeader() {
   const { user, logout } = useAuth()
   const router = useRouter()
 
+  /**
+   * @function handleLogout
+   * @description Handles the user logout process by calling the logout function
+   * from the auth context and redirecting the user to the homepage.
+   */
   const handleLogout = () => {
     logout()
     router.push("/")

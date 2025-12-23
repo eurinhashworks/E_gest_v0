@@ -6,24 +6,48 @@ import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 
+/**
+ * @component Select
+ * @description The root component for a select dropdown, based on Radix UI.
+ * @param {React.ComponentProps<typeof SelectPrimitive.Root>} props - Props for the component.
+ * @returns {JSX.Element} The root select component.
+ */
 function Select({
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Root>) {
   return <SelectPrimitive.Root data-slot="select" {...props} />
 }
 
+/**
+ * @component SelectGroup
+ * @description A component to group related items within a select dropdown.
+ * @param {React.ComponentProps<typeof SelectPrimitive.Group>} props - Props for the component.
+ * @returns {JSX.Element} The group component.
+ */
 function SelectGroup({
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Group>) {
   return <SelectPrimitive.Group data-slot="select-group" {...props} />
 }
 
+/**
+ * @component SelectValue
+ * @description Displays the selected value within the `SelectTrigger`.
+ * @param {React.ComponentProps<typeof SelectPrimitive.Value>} props - Props for the component.
+ * @returns {JSX.Element} The value component.
+ */
 function SelectValue({
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Value>) {
   return <SelectPrimitive.Value data-slot="select-value" {...props} />
 }
 
+/**
+ * @component SelectTrigger
+ * @description The button or element that opens the select dropdown.
+ * @param {React.ComponentProps<typeof SelectPrimitive.Trigger> & { size?: 'sm' | 'default' }} props - Props for the component.
+ * @returns {JSX.Element} The trigger component.
+ */
 function SelectTrigger({
   className,
   size = 'default',
@@ -50,6 +74,12 @@ function SelectTrigger({
   )
 }
 
+/**
+ * @component SelectContent
+ * @description The content container for the select dropdown, which holds the items.
+ * @param {React.ComponentProps<typeof SelectPrimitive.Content>} props - Props for the component.
+ * @returns {JSX.Element} The content container component.
+ */
 function SelectContent({
   className,
   children,
@@ -85,6 +115,12 @@ function SelectContent({
   )
 }
 
+/**
+ * @component SelectLabel
+ * @description A non-interactive label for a group of select items.
+ * @param {React.ComponentProps<typeof SelectPrimitive.Label>} props - Props for the component.
+ * @returns {JSX.Element} The label component.
+ */
 function SelectLabel({
   className,
   ...props
@@ -98,6 +134,12 @@ function SelectLabel({
   )
 }
 
+/**
+ * @component SelectItem
+ * @description A single selectable item within a select dropdown.
+ * @param {React.ComponentProps<typeof SelectPrimitive.Item>} props - Props for the component.
+ * @returns {JSX.Element} The select item component.
+ */
 function SelectItem({
   className,
   children,
@@ -122,6 +164,12 @@ function SelectItem({
   )
 }
 
+/**
+ * @component SelectSeparator
+ * @description A visual separator between items in a select dropdown.
+ * @param {React.ComponentProps<typeof SelectPrimitive.Separator>} props - Props for the component.
+ * @returns {JSX.Element} The separator component.
+ */
 function SelectSeparator({
   className,
   ...props
@@ -135,6 +183,12 @@ function SelectSeparator({
   )
 }
 
+/**
+ * @component SelectScrollUpButton
+ * @description A button to scroll up through the select items when they overflow.
+ * @param {React.ComponentProps<typeof SelectPrimitive.ScrollUpButton>} props - Props for the component.
+ * @returns {JSX.Element} The scroll up button component.
+ */
 function SelectScrollUpButton({
   className,
   ...props
@@ -153,6 +207,12 @@ function SelectScrollUpButton({
   )
 }
 
+/**
+ * @component SelectScrollDownButton
+ * @description A button to scroll down through the select items when they overflow.
+ * @param {React.ComponentProps<typeof SelectPrimitive.ScrollDownButton>} props - Props for the component.
+ * @returns {JSX.Element} The scroll down button component.
+ */
 function SelectScrollDownButton({
   className,
   ...props

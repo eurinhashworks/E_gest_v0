@@ -5,15 +5,32 @@ import { Badge } from "@/components/ui/badge"
 import type { User } from "@/lib/mock-data"
 import { Check, X } from "lucide-react"
 
+/**
+ * @interface PermissionsDialogProps
+ * @description Defines the props for the PermissionsDialog component.
+ * @property {User | null} user - The user object whose permissions are to be displayed. If null, the dialog will not render.
+ * @property {boolean} open - Controls whether the dialog is open or closed.
+ * @property {(open: boolean) => void} onOpenChange - Callback function to handle changes in the dialog's open state.
+ */
 interface PermissionsDialogProps {
   user: User | null
   open: boolean
   onOpenChange: (open: boolean) => void
 }
 
+/**
+ * @component PermissionsDialog
+ * @description A dialog component that displays a detailed table of a user's permissions across different modules.
+ * @param {PermissionsDialogProps} props - The props for the component.
+ * @returns {JSX.Element | null} The dialog component or null if no user is provided.
+ */
 export function PermissionsDialog({ user, open, onOpenChange }: PermissionsDialogProps) {
   if (!user) return null
 
+  /**
+   * @description An array defining the application modules to be displayed in the permissions table.
+   * @type {{key: string, label: string}[]}
+   */
   const modules = [
     { key: "products", label: "Produits" },
     { key: "sales", label: "Ventes" },

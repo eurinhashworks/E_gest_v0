@@ -14,12 +14,26 @@ import type { Sale, SaleItem } from "@/lib/mock-data"
 import { mockProducts } from "@/lib/mock-data"
 import { Plus, Trash2 } from "lucide-react"
 
+/**
+ * @interface SaleFormProps
+ * @description Defines the props for the SaleForm component.
+ * @property {Sale} [sale] - An optional sale object to pre-populate the form for editing.
+ * @property {(sale: Partial<Sale>) => void} onSubmit - Callback function to handle form submission.
+ * @property {() => void} onCancel - Callback function to handle form cancellation.
+ */
 interface SaleFormProps {
   sale?: Sale
   onSubmit: (sale: Partial<Sale>) => void
   onCancel: () => void
 }
 
+/**
+ * @component SaleForm
+ * @description A comprehensive form for creating and editing sales orders. It handles sale details,
+ * a dynamic list of items, and automatically calculates totals.
+ * @param {SaleFormProps} props - The props for the component.
+ * @returns {JSX.Element} The sale form component.
+ */
 export function SaleForm({ sale, onSubmit, onCancel }: SaleFormProps) {
   const [formData, setFormData] = useState<Partial<Sale>>(
     sale || {
@@ -40,6 +54,10 @@ export function SaleForm({ sale, onSubmit, onCancel }: SaleFormProps) {
 
   const [items, setItems] = useState<SaleItem[]>(sale?.items || [])
 
+  /**
+   * @function addItem
+   * @description Adds a new, empty item to the sale's item list.
+   */
   const addItem = () => {
     const newItem: SaleItem = {
       id: String(items.length + 1),
@@ -53,10 +71,23 @@ export function SaleForm({ sale, onSubmit, onCancel }: SaleFormProps) {
     setItems([...items, newItem])
   }
 
+  /**
+   * @function removeItem
+   * @description Removes an item from the sale's item list by its index.
+   * @param {number} index - The index of the item to remove.
+   */
   const removeItem = (index: number) => {
     setItems(items.filter((_, i) => i !== index))
   }
 
+  /**
+   * @function updateItem
+   * @description Updates a specific field of an item in the list and recalculates its total.
+   * If the product ID is changed, it auto-fills the product details.
+   * @param {number} index - The index of the item to update.
+   * @param {keyof SaleItem} field - The field of the sale item to update.
+   * @param {any} value - The new value for the field.
+   */
   const updateItem = (index: number, field: keyof SaleItem, value: any) => {
     const updatedItems = [...items]
     updatedItems[index] = { ...updatedItems[index], [field]: value }
@@ -77,6 +108,11 @@ export function SaleForm({ sale, onSubmit, onCancel }: SaleFormProps) {
     setItems(updatedItems)
   }
 
+  /**
+   * @function calculateTotals
+   * @description Calculates the subtotal, tax, and total based on the current items and discount.
+   * @returns {{subtotal: number, tax: number, total: number}} An object with the calculated totals.
+   */
   const calculateTotals = () => {
     const subtotal = items.reduce((sum, item) => sum + item.total, 0)
     const tax = subtotal * 0.2 // 20% TVA
@@ -85,6 +121,11 @@ export function SaleForm({ sale, onSubmit, onCancel }: SaleFormProps) {
     return { subtotal, tax, total }
   }
 
+  /**
+   * @function handleSubmit
+   * @description Handles the form submission by calculating the final totals and calling the onSubmit callback.
+   * @param {React.FormEvent} e - The form submission event.
+   */
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     const { subtotal, tax, total } = calculateTotals()
