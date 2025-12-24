@@ -1,75 +1,63 @@
 # E-commerce Management Dashboard
 
-This is a comprehensive dashboard for managing an e-commerce business. It provides a centralized interface for tracking sales, managing products, clients, and suppliers, and viewing detailed financial reports and activity logs.
+<div align="center">
 
-## Features
+![Dashboard Preview](/public/dashboard-preview.png)
+*Un tableau de bord moderne et scalable pour la gestion e-commerce.*
 
-- **Dashboard Overview**: Get a quick snapshot of your business with key metrics like revenue, orders, and active clients.
-- **Product Management**: Add, edit, and manage your product catalog, including stock levels and pricing.
-- **Sales Tracking**: View and manage all sales orders, track their status, and see payment information.
-- **Client Management**: Keep a detailed record of your clients, their purchase history, and interactions.
-- **Supplier Management**: Manage your suppliers and their supply orders.
-- **Financials**: Track all revenue and expenses, and view financial summaries.
-- **Activity Log**: See a complete history of all user actions within the system.
-- **User Management**: Manage users and their permissions.
+[Documentation Complète](./docs/README.md) • [Fonctionnalités](#features) • [Installation](#getting-started)
 
-## Project Structure
+</div>
 
-The project is a Next.js application built with TypeScript. Here's a brief overview of the key directories:
+---
 
--   `app/`: Contains all the application's routes and pages.
-    -   `app/(dashboard)/`: The main dashboard layout and its sub-pages (clients, products, sales, etc.).
--   `components/`: Contains all the reusable React components.
-    -   `components/ui/`: Base UI components like buttons, cards, and forms.
-    -   `components/*`: Feature-specific components for clients, products, etc.
--   `lib/`: Contains utility functions, authentication context, and mock data.
--   `hooks/`: Contains custom React hooks, such as `use-toast` for notifications.
--   `styles/`: Contains global CSS styles.
+## 📚 Documentation
 
-## Getting Started
+La documentation détaillée du projet est disponible dans le dossier [`docs/`](./docs/README.md).
 
-To get a local copy up and running, follow these simple steps.
+*   [🚀 Installation & Démarrage](./docs/03-install-dev.md)
+*   [🏗 Architecture](./docs/02-architecture-diagrams.md)
+*   [🧪 Tests](./docs/06-testing.md)
+*   [🤝 Contribuer](./docs/12-contributing.md)
+
+## 🌟 Features
+
+- **Dashboard Overview**: Get a quick snapshot of your business with key metrics.
+- **Product Management**: Full catalog control (stock, pricing, variants).
+- **Sales Tracking**: Order processing and history.
+- **Client & Supplier Management**: CRM and supply chain tools.
+- **Financial Reports**: Revenue and expense tracking.
+- **Role-Based Access**: Admin, Manager, Sales, and Viewer roles.
+
+## 🚀 Getting Started
 
 ### Prerequisites
 
-You will need to have Node.js and pnpm installed on your machine.
+- Node.js (v18+)
+- pnpm
 
-### Installation
+### Quick Start
 
-1.  Clone the repo
-    ```sh
-    git clone https://github.com/your_username/your_repository.git
-    ```
-2.  Navigate to the project directory
-    ```sh
-    cd your_repository
-    ```
-3.  Install NPM packages
-    ```sh
-    pnpm install
-    ```
+```bash
+# 1. Clone the repo
+git clone https://github.com/your_username/your_repository.git
 
-### Running the Application
+# 2. Install dependencies
+pnpm install
 
-To run the application in development mode, use the following command:
-
-```sh
+# 3. Run development server
 pnpm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the dashboard.
 
-The application uses a mock authentication system. You can use any email and password to log in.
+## 🛠 Tech Stack
 
-## Usage
+- **Framework**: Next.js 14 (App Router)
+- **Styling**: Tailwind CSS
+- **UI Components**: Shadcn/ui
+- **Icons**: Lucide React
 
-Once you have logged in, you will be taken to the main dashboard. From there, you can navigate to the different sections of the application using the sidebar. Each section provides a table of data with options to create, edit, view, and delete records.
+## 📄 License
 
-## Built With
-
--   [Next.js](https://nextjs.org/) - React Framework
--   [TypeScript](https://www.typescriptlang.org/) - Programming Language
--   [Tailwind CSS](https://tailwindcss.com/) - CSS Framework
--   [Shadcn/ui](https://ui.shadcn.com/) - UI Components
--   [Radix UI](https://www.radix-ui.com/) - Primitives for building high-quality design systems
--   [Lucide React](https://lucide.dev/) - Icon Library
+This project is proprietary.
